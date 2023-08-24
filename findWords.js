@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.findWords = void 0;
+exports.findWords = exports.findWordsBasic = void 0;
 var data_1 = require("./data");
 /*
 Root of prefix tree
@@ -8,6 +8,32 @@ Declaring root as a global variable means that we only need to build the prefix 
 This improves performance over multiple calls to findWords
 */
 var root;
+function findWordsBasic(input) {
+    var wordSet = new Set(data_1.WORDS);
+    var solvedSubproblemCache = {};
+    function unfurlPermutations(permutation, input) {
+        // console.log(permutation);
+        var subProblem = solvedSubproblemCache[permutation];
+        if (subProblem)
+            return subProblem;
+        solvedSubproblemCache[permutation] = new Set();
+        for (var i = 0; i < input.length; i++) {
+            var nextChar = input[i];
+            var nextPermutation = permutation + nextChar;
+            if (wordSet.has(nextPermutation))
+                solvedSubproblemCache[permutation].add(nextPermutation);
+            var nextInput = input.slice(0, i) + input.slice(i + 1);
+            var thisBranchWords = unfurlPermutations(nextPermutation, nextInput);
+            thisBranchWords.forEach(function (childWord) {
+                solvedSubproblemCache[permutation].add(childWord);
+            });
+        }
+        return solvedSubproblemCache[permutation];
+    }
+    var foundWords = Array.from(unfurlPermutations("", input));
+    return foundWords;
+}
+exports.findWordsBasic = findWordsBasic;
 function findWords(input, disableTrie) {
     /*
     Initialize the prefix tree of our dictionary if it hasn't been already
@@ -16,6 +42,10 @@ function findWords(input, disableTrie) {
     */
     if (!root && !disableTrie)
         buildTrie();
+    var wordSet;
+    if (disableTrie) {
+        wordSet = new Set(data_1.WORDS);
+    }
     /*
     Invariant: subproblemsInProgress will contain permutations of characters
     that unfurlPermutations has already encountered in some part of the recursive tree
@@ -43,7 +73,7 @@ function findWords(input, disableTrie) {
         Otherwise it is an O(n) lookup.
         We could optimize this case to O(1) by creating a Set out of words at the beginning of findWords
         */
-        if ((node === null || node === void 0 ? void 0 : node.isEndOfWord) || data_1.WORDS.includes(permutation)) {
+        if ((!node && (wordSet === null || wordSet === void 0 ? void 0 : wordSet.has(permutation))) || (node === null || node === void 0 ? void 0 : node.isEndOfWord)) {
             foundWords.push(permutation);
         }
         //Explore all possible 1 character additions to this permutation

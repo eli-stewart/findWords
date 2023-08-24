@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-var data_1 = require("./data");
 var findWords_1 = require("./findWords");
+var data_1 = require("./data");
 var utils_1 = require("./utils");
 function testFindWords(input, expected, disableTrie) {
     console.time(input);
