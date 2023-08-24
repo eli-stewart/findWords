@@ -1,7 +1,7 @@
 import { WORDS } from "./data";
 
 /*
-Declaring root and wordset as a global variable means that we only need to build the prefix tree or set once 
+Declaring root and wordset as global variables means that we only need to build the prefix tree or set once 
 This improves performance over multiple calls to findWords 
 */
 var root: TrieNode; // Root of prefix tree
@@ -23,7 +23,7 @@ export function findWords(input: string, disableTrie?: boolean): string[] {
   /*
   Invariant: subproblemsInProgress will contain permutations of characters 
   that unfurlPermutations has already encountered in some part of the recursive tree
-  Warning: Running findWords without prefix tree on large inputs can cause this Set to exceed maximum size
+  Warning: Running findWords without prefix tree on large inputs can cause subproblemsInProgress to exceed maximum size
   */
   const subproblemsInProgress: Set<string> = new Set();
 
