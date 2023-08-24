@@ -7,7 +7,8 @@ const inputs = ["oogd", "apple", "abcd", "edrcrxeiea", input6];
 
 const outputs = [
   ["good", "god", "dog", "goo", "do", "go"],
-  ["ale",
+  [
+    "ale",
     "ape",
     "app",
     "appel",
@@ -28,182 +29,168 @@ const outputs = [
     "pep",
     "plea",
   ],
+  ["ab", "ad", "bad", "cab", "cad", "dab"],
   [
-"ab",
-"ad",
-"bad",
-"cab",
-"cad",
-"dab",
+    "ace",
+    "aced",
+    "acid",
+    "acre",
+    "acrid",
+    "ad",
+    "aerie",
+    "aerier",
+    "ai",
+    "aid",
+    "aide",
+    "aider",
+    "air",
+    "aired",
+    "airer",
+    "ar",
+    "arc",
+    "arced",
+    "are",
+    "arid",
+    "ax",
+    "axe",
+    "axed",
+    "cad",
+    "cadre",
+    "car",
+    "card",
+    "carder",
+    "care",
+    "cared",
+    "career",
+    "careered",
+    "carer",
+    "carried",
+    "cedar",
+    "cede",
+    "ceder",
+    "cedi",
+    "cee",
+    "cere",
+    "cered",
+    "cider",
+    "creed",
+    "cried",
+    "crier",
+    "dare",
+    "darer",
+    "deair",
+    "dear",
+    "dearer",
+    "dearie",
+    "decare",
+    "decree",
+    "decreer",
+    "decrier",
+    "dee",
+    "deer",
+    "deice",
+    "deicer",
+    "dere",
+    "dice",
+    "dicer",
+    "die",
+    "dire",
+    "direr",
+    "drear",
+    "drier",
+    "ear",
+    "eared",
+    "eerie",
+    "eerier",
+    "eider",
+    "era",
+    "err",
+    "erred",
+    "ex",
+    "exceed",
+    "excide",
+    "ice",
+    "iced",
+    "icer",
+    "id",
+    "ide",
+    "idea",
+    "ire",
+    "ired",
+    "race",
+    "raced",
+    "racer",
+    "racier",
+    "radix",
+    "raid",
+    "raider",
+    "rare",
+    "rax",
+    "raxed",
+    "re",
+    "read",
+    "reader",
+    "readier",
+    "rear",
+    "reared",
+    "recede",
+    "red",
+    "reed",
+    "reedier",
+    "reice",
+    "reiced",
+    "reread",
+    "rice",
+    "riced",
+    "ricer",
+    "rid",
+    "ride",
+    "rider",
+    "xeric",
+    "xi",
   ],
-  ["ace",
-  "aced",
-  "acid",
-  "acre",
-  "acrid",
-  "ad",
-  "aerie",
-  "aerier",
-  "ai",
-  "aid",
-  "aide",
-  "aider",
-  "air",
-  "aired",
-  "airer",
-  "ar",
-  "arc",
-  "arced",
-  "are",
-  "arid",
-  "ax",
-  "axe",
-  "axed",
-  "cad",
-  "cadre",
-  "car",
-  "card",
-  "carder",
-  "care",
-  "cared",
-  "career",
-  "careered",
-  "carer",
-  "carried",
-  "cedar",
-  "cede",
-  "ceder",
-  "cedi",
-  "cee",
-  "cere",
-  "cered",
-  "cider",
-  "creed",
-  "cried",
-  "crier",
-  "dare",
-  "darer",
-  "deair",
-  "dear",
-  "dearer",
-  "dearie",
-  "decare",
-  "decree",
-  "decreer",
-  "decrier",
-  "dee",
-  "deer",
-  "deice",
-  "deicer",
-  "dere",
-  "dice",
-  "dicer",
-  "die",
-  "dire",
-  "direr",
-  "drear",
-  "drier",
-  "ear",
-  "eared",
-  "eerie",
-  "eerier",
-  "eider",
-  "era",
-  "err",
-  "erred",
-  "ex",
-  "exceed",
-  "excide",
-  "ice",
-  "iced",
-  "icer",
-  "id",
-  "ide",
-  "idea",
-  "ire",
-  "ired",
-  "race",
-  "raced",
-  "racer",
-  "racier",
-  "radix",
-  "raid",
-  "raider",
-  "rare",
-  "rax",
-  "raxed",
-  "re",
-  "read",
-  "reader",
-  "readier",
-  "rear",
-  "reared",
-  "recede",
-  "red",
-  "reed",
-  "reedier",
-  "reice",
-  "reiced",
-  "reread",
-  "rice",
-  "riced",
-  "ricer",
-  "rid",
-  "ride",
-  "rider",
-  "xeric",
-  "xi",
-  ],
-  output6
+  output6,
 ];
 
-var validWords: string[] = []
+var validWords: string[] = [];
 
-outputs.forEach((output)=>{
-    validWords = [...validWords, ...output];
-})
+outputs.forEach((output) => {
+  validWords = [...validWords, ...output];
+});
 
 export const WORDS = validWords;
 
 const eqSet = (xs, ys) =>
-    xs.size === ys.size &&
-    [...xs].every((x) => ys.has(x));
+  xs.size === ys.size && [...xs].every((x) => ys.has(x));
 
 function testFindWords(input: string, expected: string[]) {
-    console.time(input)
+  console.time(input);
   const foundWords = findWords(input);
   console.timeEnd(input);
-  if (eqSet(new Set(foundWords), new Set(expected))){
+  if (eqSet(new Set(foundWords), new Set(expected))) {
     console.log("PASS");
-    
   } else {
     console.log("FAIL");
     console.log("Found Words:", foundWords.sort());
     console.log("Expected Words:", expected.sort());
   }
-  
 
   console.log();
 }
 
-
-
-function runTests(){
-    for (var i = 0; i<inputs.length; i++){
-        console.log(`TEST ${i}`);
-        testFindWords(inputs[i], outputs[i]);
-        
-    }
+function runTests() {
+  for (var i = 0; i < inputs.length; i++) {
+    console.log(`TEST ${i}`);
+    testFindWords(inputs[i], outputs[i]);
+  }
 }
 
-runTests()
+runTests();
 
 //   testFindWords("oogd"); // Expected: ["good", "god", "dog", "goo", "do", "go"]
 //   testFindWords("apple"); // Expected: ["a", "apple"]
 //   testFindWords("abcd"); // Expected: ["a"]
 //   testFindWords("edrcrxeiea"); // Expected: ["a", "air", "arc", "are", "car", "care", "ceria", "crar", "ear", "erica", "race", "rae", "rec", "rice"]
-
-
 
 // Test case 1
 const testInput1 = "qazwsxedcrfvtgbyhnujmikolp";

@@ -16,7 +16,8 @@ var findWords_1 = require("./findWords");
 var inputs = ["oogd", "apple", "abcd", "edrcrxeiea", data_1.input6];
 var outputs = [
     ["good", "god", "dog", "goo", "do", "go"],
-    ["ale",
+    [
+        "ale",
         "ape",
         "app",
         "appel",
@@ -37,15 +38,9 @@ var outputs = [
         "pep",
         "plea",
     ],
+    ["ab", "ad", "bad", "cab", "cad", "dab"],
     [
-        "ab",
-        "ad",
-        "bad",
-        "cab",
-        "cad",
-        "dab",
-    ],
-    ["ace",
+        "ace",
         "aced",
         "acid",
         "acre",
@@ -163,7 +158,7 @@ var outputs = [
         "xeric",
         "xi",
     ],
-    data_1.output6
+    data_1.output6,
 ];
 var validWords = [];
 outputs.forEach(function (output) {
@@ -171,8 +166,7 @@ outputs.forEach(function (output) {
 });
 exports.WORDS = validWords;
 var eqSet = function (xs, ys) {
-    return xs.size === ys.size &&
-        __spreadArray([], xs, true).every(function (x) { return ys.has(x); });
+    return xs.size === ys.size && __spreadArray([], xs, true).every(function (x) { return ys.has(x); });
 };
 function testFindWords(input, expected) {
     console.time(input);

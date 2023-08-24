@@ -12,7 +12,7 @@ export async function findWordsAsync(input: string): Promise<string[]> {
 
     const branches: Promise<void>[] = [];
     for (var i = 0; i < input.length; i++) {
-      const evaluateThisBranch = async () =>{
+      const evaluateThisBranch = async () => {
         const nextChar = input[i];
         const nextPermutation = permutation + nextChar;
 
@@ -27,7 +27,7 @@ export async function findWordsAsync(input: string): Promise<string[]> {
         thisBranchWords.forEach((childWord) => {
           solvedSubproblemCache[permutation].add(childWord);
         });
-      }
+      };
       branches.push(evaluateThisBranch());
     }
     Promise.all(branches);

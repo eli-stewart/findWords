@@ -1,33 +1,60 @@
 import { WORDS } from "./testFindWords";
 
+class TrieNode {
+  children: { [char: string]: TrieNode };
+  isEndOfWord: boolean;
+
+  constructor() {
+    this.children = {};
+    this.isEndOfWord = false;
+  }
+}
+
+var root: TrieNode;
+
+function initTrie() {
+  root = new TrieNode();
+  for (const word of WORDS) {
+    let currentNode = root;
+    for (const char of word) {
+      if (!currentNode.children?.[char]) {
+        currentNode.children[char] = new TrieNode();
+      }
+      currentNode = currentNode.children?.[char];
+    }
+    currentNode.isEndOfWord = true;
+  }
+}
+
 export function findWords(input: string): string[] {
-  const wordSet = new Set(WORDS);
-  const solvedSubproblemCache: { [substring: string]: Set<string> } = {};
+  if (!root) initTrie();
 
-  function unfurlPermutations(permutation: string, input: string) {
-    console.log(permutation);
-    const subProblem = solvedSubproblemCache[permutation];
-    if (subProblem) return subProblem;
+  const foundWords: string[] = [];
 
-    solvedSubproblemCache[permutation] = new Set();
+  function unfurlPermutations(
+    node: TrieNode,
+    permutation: string,
+    input: string
+  ) {
+    if (node.isEndOfWord) {
+      foundWords.push(permutation);
+    }
 
-    for (var i = 0; i < input.length; i++) {
+    for (let i = 0; i < input.length; i++) {
       const nextChar = input[i];
       const nextPermutation = permutation + nextChar;
+      const nextNode = node.children?.[nextChar];
 
-      if (wordSet.has(nextPermutation))
-        solvedSubproblemCache[permutation].add(nextPermutation);
-
-      const nextInput = input.slice(0, i) + input.slice(i + 1);
-      const thisBranchWords = unfurlPermutations(nextPermutation, nextInput);
-      thisBranchWords.forEach((childWord) => {
-        solvedSubproblemCache[permutation].add(childWord);
-      });
+      if (nextNode) {
+        unfurlPermutations(
+          nextNode,
+          nextPermutation,
+          input.slice(0, i) + input.slice(i + 1)
+        );
+      }
     }
-    return solvedSubproblemCache[permutation];
   }
 
-  const foundWords = Array.from(unfurlPermutations("", input));
-
+  unfurlPermutations(root, "", input);
   return foundWords;
 }
